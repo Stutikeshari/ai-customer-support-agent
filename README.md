@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+AI Customer Support Agent
 
-## Getting Started
+An AI-powered customer support agent built with Next.js, TypeScript, OpenAI, and function calling to process e-commerce refund requests according to a strict refund policy.
 
-First, run the development server:
+The application simulates a real customer-support workflow where an AI agent retrieves customer and order information, checks refund eligibility against predefined business rules, and provides an approval or denial response.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+It also includes an admin dashboard for observing structured agent activity, tool calls, policy validation, errors, and final decisions.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Project Overview
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The goal of this project is to build a vertical slice of an AI Customer Support Agent capable of handling e-commerce refund requests.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The agent does not make refund decisions based only on the LLM's response. Instead, the LLM dynamically calls backend tools, and the final refund decision is determined by deterministic refund-policy validation.
 
-## Learn More
+Main workflow
+Customer
+   ↓
+Customer Chat UI
+   ↓
+Next.js API
+   ↓
+AI Agent
+   ↓
+Tool Calling
+   ↓
+Customer / Order / Policy Data
+   ↓
+Refund Eligibility Validation
+   ↓
+ ┌───────────────┐
+ │               │
+APPROVE         DENY
+ │               │
+ ↓               ↓
+Refund         Reason for
+Response       Rejection
+ │               │
+ └───────┬───────┘
+         ↓
+Customer Response
 
-To learn more about Next.js, take a look at the following resources:
+         +
+         ↓
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Admin Agent Logs
+✨ Features
+Customer Chat
+Clean responsive customer-support interface
+Customers can submit refund requests
+AI agent understands the customer's request
+Agent dynamically calls backend tools
+Clear approval or denial response
+Displays the reason when a refund is denied
+AI Agent
+Built using OpenAI function calling
+Dynamically selects the appropriate tools
+Retrieves customer information
+Retrieves order information
+Retrieves refund-policy rules
+Validates refund eligibility
+Produces a final customer-friendly response
+Refund Policy Validation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The refund decision is handled by deterministic backend rules.
 
-## Deploy on Vercel
+The AI agent cannot override the refund policy.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The system validates conditions such as:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Customer exists
+Order exists
+Order belongs to the customer
+Order has been delivered
+Refund request is within the allowed refund window
+Product is refundable
+Order has not already been refunded
+Order does not already have a pending refund
+Mock CRM
+
+The application contains:
+
+15 fictional customer profiles
+Customer order history
+Mock order information
+Different refund scenarios
+
+No real customer information is used.
+
+Admin Dashboard
+
+The admin dashboard provides structured observability into the agent workflow.
+
+It can display:
+
+Agent requests
+Tool calls
+Tool results
+Customer/order identifiers
+Policy validation
+Success/failure status
+Errors
+Retry attempts
+Final refund decisions
+
+The logs are designed for observability and debugging and do not expose private chain-of-thought reasoning.
+
+🛠️ Tech Stack
+Technology	Purpose
+Next.js	Frontend and API routes
+React	UI components
+TypeScript	Type safety
+Tailwind CSS	Styling and responsive UI
+OpenAI	LLM-powered agent
+OpenAI Function Calling	Dynamic tool orchestration
+Node.js	Backend runtime
+Mock TypeScript Data	CRM and order database
+Git / GitHub	Version control
