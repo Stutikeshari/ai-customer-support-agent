@@ -12,36 +12,6 @@ The goal of this project is to build a vertical slice of an AI Customer Support 
 
 The agent does not make refund decisions based only on the LLM's response. Instead, the LLM dynamically calls backend tools, and the final refund decision is determined by deterministic refund-policy validation.
 
-Main workflow
-Customer
-   ↓
-Customer Chat UI
-   ↓
-Next.js API
-   ↓
-AI Agent
-   ↓
-Tool Calling
-   ↓
-Customer / Order / Policy Data
-   ↓
-Refund Eligibility Validation
-   ↓
- ┌───────────────┐
- │               │
-APPROVE         DENY
- │               │
- ↓               ↓
-Refund         Reason for
-Response       Rejection
- │               │
- └───────┬───────┘
-         ↓
-Customer Response
-
-         +
-         ↓
-
 Admin Agent Logs
 ✨ Features
 Customer Chat
